@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Azure MCP Chat</title>
+</head>
+<body>
+  <h2>Azure Assistant</h2>
+
+  <input id="input" placeholder="Ask something..." />
+  <button onclick="send()">Send</button>
+
+  <pre id="output"></pre>
+
+  <script>
+    async function send() {
+      const message = document.getElementById("input").value;
+
+      const res = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message })
+      });
+
+      const data = await res.json();
+      document.getElementById("output").innerText = data.reply;
+    }
+  </script>
+</body>
+</html>
